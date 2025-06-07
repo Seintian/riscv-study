@@ -5,6 +5,7 @@ This repository contains a structured, self-paced course on RISC-V Assembly, fro
 ## Repository Layout
 
 Each chapter lives in its own directory (`ChapterXX_Name`) with a `README.md` detailing:
+
 - **Goals**: What you'll learn
 - **Key Topics**: Core concepts and instructions
 - **Exercises**: Hands-on coding tasks
@@ -55,6 +56,6 @@ cd riscv-study
 Jump into Chapter 1:
 
 ```sh
-cd Chapter01_Setup_Hello
+cd 01-setup-hello
 less README.md
 ```
