@@ -1,4 +1,4 @@
-# char* citoa(int num, char* str, int base)
+# char* itoa(int num, char* str, int base)
 # {
 #     int i = 0;
 #     bool isNegative = false;
@@ -22,7 +22,12 @@
 #     # Process individual digits
 #     while (num != 0) {
 #         int rem = num % base;
-#         str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
+#         if (rem > 9)
+#             str[i++] = (rem - 10) + 'a';
+#
+#         else
+#             str[i++] = rem + '0';
+#
 #         num = num / base;
 #     }
 # 
@@ -78,9 +83,25 @@ __itoa_while:
 
     # Get remainder and convert to character
     rem t0, a0, a2                  # t0 = num % base
-    addi t0, t0, '0'                # Convert to ASCII character
-    sb t0, 0(a1)                    # str[i] = character
-    addi a1, a1, 1                  # Move to next position in str
+
+    #         if (rem > 9)
+    #             str[i++] = (rem - 10) + 'a';
+    #
+    #         else
+    #             str[i++] = rem + '0';
+    li t1, 9
+	ble t0, t1, __itoa_if_gt_9_else
+	addi t0, t0, -10
+	addi t0, t0, 'a'
+	sb t0, 0(a1)					# str[i++] = (rem - 10) + 'a'
+	j __itoa_if_gt_9_end
+
+__itoa_if_gt_9_else:
+	addi t0, t0, '0'
+	sb t0, 0(a1)					# str[i++] = rem + '0'
+
+__itoa_if_gt_9_end:
+	addi a1, a1, 1                  # Move to next position in str
 
     # Divide num by base
     divu a0, a0, a2                 # num = num / base
@@ -88,12 +109,14 @@ __itoa_while:
 
 __itoa_done:
     # If number is negative, append '-'
-    beqz s1, _itoa_end              # If isNegative == 0, skip
+    beqz s1, __itoa_if_no_neg       # If isNegative == 0, skip
 
     li t0, '-'                      # Load ASCII '-'
-    sb t0, 0(a1)                    # str[i] = '-'
+    sb t0, 0(a1)                    # str[i++] = '-'
+    addi a1, a1, 1
 
-    sb zero, 1(a1)                  # str[i] = '\0' (null terminator)
+__itoa_if_no_neg:
+    sb zero, 0(a1)                  # str[i] = '\0' (null terminator)
 
     # Reverse the string
     mv a0, s0                       # Restore original str pointer

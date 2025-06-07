@@ -10,9 +10,9 @@ This chapter introduces key RISC-V instruction categories through practical exam
 
 Used to perform integer math operations on registers. These instructions modify register values by adding, subtracting, or multiplying.
 
-- **add**: Adds two registers  
-- **sub**: Subtracts one register from another  
-- **mul**: Multiplies two registers (requires M-extension)  
+- `add`: Adds two registers  
+- `sub`: Subtracts one register from another  
+- `mul`: Multiplies two registers (requires M-extension)  
 
 Example:
 
@@ -26,10 +26,10 @@ mul t6, t7, t8   # t6 = t7 * t8
 
 Control program flow based on comparisons. These instructions allow conditional jumps and function calls.
 
-- beq (branch if equal): jumps if two registers are equal
-- bne (branch if not equal)
-- jal (jump and link): jumps to an address and saves return address
-- jalr (jump and link register): indirect jump through register
+- `beq` (branch if equal): jumps if two registers are equal
+- `bne` (branch if not equal)
+- `jal` (jump and link): jumps to an address and saves return address
+- `jalr` (jump and link register): indirect jump through register
 
 Example:
 
@@ -44,12 +44,12 @@ jalr ra, t0, 0      # indirect jump using t0
 
 Load and store data between memory and registers. These instructions handle different data sizes and signed/unsigned variants.
 
-- lb/lbu: load byte (signed/unsigned)
-- lh/lhu: load halfword (16-bit)
-- lw/lwu: load word (32-bit)
-- sb: store byte
-- sh: store halfword
-- sw: store word
+- `lb`/`lbu`: load byte (signed/unsigned)
+- `lh`/`lhu`: load halfword (16-bit)
+- `lw`/`lwu`: load word (32-bit)
+- `sb`: store byte
+- `sh`: store halfword
+- `sw`: store word
 
 Example:
 
@@ -62,12 +62,12 @@ sb t1, 4(t2)       # store byte from t1 at memory address t2+4
 
 Perform bitwise operations on register values, used in masks, flags, and low-level data manipulation.
 
-- and: bitwise AND
-- or: bitwise OR
-- xor: bitwise XOR
-- sll: shift left logical
-- srl: shift right logical
-- sra: shift right arithmetic (preserves sign)
+- `and`: bitwise AND
+- `or`: bitwise OR
+- `xor`: bitwise XOR
+- `sll`: shift left logical
+- `srl`: shift right logical
+- `sra`: shift right arithmetic (preserves sign)
 
 Example:
 
