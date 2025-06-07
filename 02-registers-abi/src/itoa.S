@@ -45,8 +45,8 @@ itoa:
 _itoa_begin:
     # Handle 0 explicitly, otherwise empty string is printed for 0
     bnez a0, __itoa_not_zero
-    li a3, '0'                      # Load ASCII '0'
-    sb a3, 0(a1)                    # str[0] = '0'
+    li t0, '0'                      # Load ASCII '0'
+    sb t0, 0(a1)                    # str[0] = '0'
     sb zero, 1(a1)                  # str[1] = '\0'
     ret
 
@@ -77,9 +77,9 @@ __itoa_while:
     beqz a0, __itoa_done            # If num == 0, exit loop
 
     # Get remainder and convert to character
-    rem a3, a0, a2                  # a3 = num % base
-    addi a3, a3, '0'                # Convert to ASCII character
-    sb a3, 0(a1)                    # str[i] = character
+    rem t0, a0, a2                  # t0 = num % base
+    addi t0, t0, '0'                # Convert to ASCII character
+    sb t0, 0(a1)                    # str[i] = character
     addi a1, a1, 1                  # Move to next position in str
 
     # Divide num by base
@@ -90,8 +90,8 @@ __itoa_done:
     # If number is negative, append '-'
     beqz s1, _itoa_end              # If isNegative == 0, skip
 
-    li a3, '-'                      # Load ASCII '-'
-    sb a3, 0(a1)                    # str[i] = '-'
+    li t0, '-'                      # Load ASCII '-'
+    sb t0, 0(a1)                    # str[i] = '-'
 
     sb zero, 1(a1)                  # str[i] = '\0' (null terminator)
 
