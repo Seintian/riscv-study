@@ -1,8 +1,8 @@
 .eqv SYSCALL_EXIT, 93
 
-.data
+.section .data
 byte:
-	.byte 18
+	.byte 255
 
 halfword:
 	.half 18
@@ -13,10 +13,11 @@ word:
 doubleword:
 	.dword 18
 
-.text
+.section .text
 .global _start
 _start:
-	li a0, 0
+	la a0, byte
+	lb a0, 0(a0)
 
 _exit:
 	li a7, SYSCALL_EXIT
